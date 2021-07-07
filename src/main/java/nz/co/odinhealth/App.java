@@ -15,7 +15,6 @@ import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -145,10 +144,9 @@ public class App {
         final long duration = app.doTest();
 
         final ConsoleReporter reporter = ConsoleReporter.forRegistry(metricRegistry).build();
-        reporter.start(5, TimeUnit.MICROSECONDS);
-        reporter.report();
+        // report will do 1 report before closing
         reporter.close();
-        System.out.println(String.format("Test completed in %s seconds", duration / 1000));
+        System.out.println(String.format("\nTest completed in %s seconds", duration / 1000));
     }
 
 }
